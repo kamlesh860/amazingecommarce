@@ -1,0 +1,15 @@
+
+/* --------------------------------------------------------------Profile--------------------------------- */
+
+.profile_detail{
+	background-color: cadetblue;
+	border-radius: 5px;
+	height: 100%;
+	width: 100%;
+	
+}
+
+.profile_btt{
+	margin-top: 20px;
+
+}

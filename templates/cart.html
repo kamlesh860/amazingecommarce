@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="shadow mt-5">
+            <a href="{% url 'home' %}"> <button class="btn btn-secondary m-3">&#x2190; Continue Shopping</button> </a>
+            
+                <table class="table ">
+                    <thead>
+                    <tr>
+                        <th scope="col" >Item : {{object.get_total_quantity}} </th>
+                        <th scope="col">Total : Rs.{{object.get_total_price|floatformat:2}}/- </th>
+                        <th scope="col">
+                            <a href="{% url 'CheckoutView' %}"> <button class="btn btn-success" style="margin-left: 50%;">Checkout </button> </a>
+                        </th>
+                    
+                  </tr> 
+                </thead>
+                
+              </table>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="shadow mt-5">
+            
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"> </th>
+                      <th></th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for i in object.items.all %}
+                  <tr>
+                      <td>{{forloop.counter}}</td>
+                    <th scope="row"><img style="height: 50px;width: 60px;" class="img-fluid ml-2" src="{{i.item.img.url}}" alt=""></th>
+                    <td>{{i.item.title}}</td>
+                    <td> Rs.{{i.item.price|floatformat:2}} </td>
+                    <td><a href="{% url 'remove_single_item_from_cart' i.item.slug %}"><i class="fa fa-minus mr-2 ml-1"
+                            style="color: black;"></i></a> {{i.quantity }} <a href="{% url 'add_to_cart' i.item.slug %}"><i
+                            class="fa fa-plus 8ioml-2" style="color: black;"></i></a> </td>
+                    <td>Rs.{{i.get_total_item_price|floatformat:2}}</td>
+                      <td><a  style="color:red;" href="{% url 'remove_from_cart' i.item.slug %}"> <i class="fa fa-trash "></i> </a>  </td>
+                  </tr>
+                  {% endfor %}
+
+
+
+                </tbody>
+
+            </table>
+            
+        </div>
+    </div>
+{% endblock %}

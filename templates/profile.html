@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+        <div class="shadow bg-white pb-3">
+            
+            <!-- <div class="pt-4">
+                <img class="" src="{{ profiles.img.url }}" alt="" style="height: 150px;width: 150px;border-radius: 50%;display: block;margin-left: auto;margin-right:auto;">
+
+            </div> -->
+            
+            
+            <div class="container mt-4 pl-5 pr-5 pt-3 ">
+
+            
+                <div class="row">
+                    
+                        <div class="col-lg-4 ">
+                            <div class="profile_detail ">
+                                <div class="profile_button P-2">
+                                    <div>
+                                        <button class=" btn btn-warning btn-block  profile_btt  " onclick="ProfileOpen1()"  style="">Profile</button>
+                                    </div>
+                                    
+                                    <div>
+                                        <a href="{% url 'myorder' %}"> <button class=" btn btn-warning btn-block profile_btt" style="">My Order</button> </a> 
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'change_password' %}"> <button class=" btn btn-warning btn-block profile_btt" style="">Reset Password</button> </a>
+                                    </div>
+                                </div>            
+
+
+                            </div>
+                        </div>
+                    
+
+                    
+                        <div class="col-lg-8 bg-black mt-2">
+                            {% if user.is_authenticated %}
+
+                            <div class="form-popup" id="profile1">
+                                
+                                <table class="table " style="">
+                                
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">First Name</th>
+                                        <td>{{user.first_name}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Last Name</th>
+                                        <td>{{user.last_name}}</td>
+                                    
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Email</th>
+                                        <td>{{user.email}}</td>
+                                        
+                                    </tr>
+                                    
+                                    
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+
+                            {% endif %}
+
+                            <div class="form-popup" id="profile2" >
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="box2 bg-white p-3" style="margin-top: 10%; border-radius:5px ;text-align: center;">
+                                        
+                                        <fieldset class="form-group">
+                                            <legend class="border-bottom mb-4" style="font-weight: bold;"> Profile Info</legend>
+
+                                            {{ u_form|crispy }}
+
+
+                                            <!-- <div class="form-group">
+                                            <h6 class="" style="padding-right: 82%;font-weight: bold;">First Name</h6>
+                                            <input class="form-control" type="text" placeholder="First Name" name="first_name1">
+                                            </div>
+                                            <div class="form-group">
+                                                <h6 class="" style="padding-right: 82%;font-weight: bold;">Last Name</h6>
+                                                <input class="form-control" type="text" placeholder="Last Name"name="last_name1">
+                                            </div>
+                                            <div class="form-group">
+                                                <h6 class="" style="padding-right: 89%;font-weight: bold;">Email</h6>
+                                                <input class="form-control" type="email" placeholder="Email"name="email1">
+                                            </div> -->
+                                        
+
+                                        </fieldset>
+
+
+
+                                        
+            
+                                        <div class="">
+                                            <button class="btn btn-success" style="">Update</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

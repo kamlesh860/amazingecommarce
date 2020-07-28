@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="shadow p-3 bg-white mt-5">
+                    <form action="{% url 'CheckoutView' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row ">
+                            <div class="col-6 ">
+                                <input type="text" name="full_name" class="form-control " placeholder="Full Name"
+                                    value="{{user.first_name}}">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" name="email" class="form-control" placeholder="Email"
+                                    value="{{user.email}}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h5 class="" style="padding-top: 20px;padding-left: 15px;;">Shipping Information :</h5>
+                        </div>
+                        <hr>
+
+                        <div class="form-group m-2">
+                            <input type="text" class="form-control " id="address" placeholder="Address" name="address">
+                        </div>
+
+                        <div class="form-group m-2">
+                            <input type="text" class="form-control " id="city" placeholder="ity.." name="city">
+                        </div>
+
+                        <div class="form-group m-2">
+                            <input type="text" class="form-control " id="state" placeholder="State" name="state">
+                        </div>
+
+                        <div class="form-group m-2">
+                          <input type="number" class="form-control" id="pincode" placeholder=" pin code" name="pincode">
+                        </div>
+
+                        <div class="m-2">   
+                            <button type="submit" class="btn btn-success form-control mb-2">Continue</button>
+
+                        </div>
+                        
+                      </form>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="shadow p-3 bg-white mt-5">
+                    <div>
+                        <a href="{% url 'cart' %}"> <button class="btn btn-success m-3"> Back to cart</button> </a>
+                        <h5 style="padding-left:20px;">Order Summary:</h5>
+                        <table class="table" style="font-size: 15px;">
+                            <thead>
+                              <tr>
+                                <th class="pl-5">Product</th>
+                                <th class="pl-5">Name</th>
+                                <th class="pl-5">Quantity</th>
+                                <th class="pl-5">Total</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for i in object.items.all %}
+                                <tr>
+
+
+                                    <th scope="row"><img style="height: 50px;width: 60px;" class="img-fluid ml-2" src="{{i.item.img.url}}" alt=""></th>
+                                    <td>{{i.item.title}}</td>
+                                    <td style="padding-left:60px;"> x{{i.quantity}}</td>
+                                    <td> Rs.{{i.get_total_item_price|floatformat:2}} </td>
+
+
+
+                                  </tr>
+                                {% endfor %}
+
+
+
+                              <tr>
+                                <th scope="row">Item: {{object.get_total_quantity}}</th>
+                                <th scope="row"></th>
+                                <th scope="row"></th>
+
+                                <th scope="row" >Total: Rs.{{object.get_total_price|floatformat:2}}/-</th>
+                                
+                              </tr>
+
+                              
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
